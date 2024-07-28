@@ -14,7 +14,10 @@ Wordle is a daily online word puzzle where players have six attempts to guess a 
 
 When you run the bot for the first time, it will give you five words which will give you the most information according to its calculations. You can choose any of those words to start the game with. After that, you enter the word chose and the pattern you got.
 
-`Enter the guess:  `Enter the pattern: `
+```cmd
+Enter the guess:
+Enter the pattern:
+```
 
 By default, you can enter in capital or small letters. The pattern should be shown like this: black `b` for grey box, `y` for yellow box, and `g` for green box without spaces. For example: `bbgbb` is valid pattern. After you enter this, it will give you the next five most efficient guesses, and show how many possible solutions are remaining.
 
@@ -30,15 +33,21 @@ Okay, you will need two libraries to run this. `numpy` and `pandas`. After that 
 
 Install Numpy and andas
 
- ```pip install numpy, pandas```
+```cmd
+ pip install numpy, pandas
+ ```
 
 Clone the project
 
- ```git clone ```
+ ```cmd
+ git clone
+ ```
 
 Run the bot
 
-```python wordle_bot.py```
+```cmd
+python wordle_bot.py
+```
 
 ## Contributing
 
