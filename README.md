@@ -29,12 +29,15 @@ For every guess, the output would be one of `243` patterns possible. Assuming ev
 Okay, you will need two libraries to run this. `numpy` and `pandas`. After that you can follow the simple process.
 
 Install Numpy and andas
+
  ```pip install numpy, pandas```
 
 Clone the project
+
  ```git clone ```
 
 Run the bot
+
 ```python wordle_bot.py```
 
 ## Contributing
