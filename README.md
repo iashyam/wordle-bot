@@ -1,4 +1,4 @@
-![wordle logo](wordle.png)
+![wordle logo](images/wordle.png)
 
 # Wordle Bot
 
@@ -8,7 +8,7 @@ Wordle is a daily online word puzzle where players have six attempts to guess a 
 
 ## Demo
 
-![demo](demo.gif)
+![demo](images/demo.gif)
 
 ## Usage
 
