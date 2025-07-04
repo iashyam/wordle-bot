@@ -3,21 +3,17 @@ from numpy import log2 as ln
 from tqdm import tqdm
 from src import *
 
-class wordle:
-	def get_probabilities(self, thing):
-		return self.df.loc[thing]['prob'].sum()
-		
-		#get the next most probable words:
-	def max_info(self, word_list):
+class Wordle:
+	
+	#get the next most probable words:
+	def max_info(self, word_list: list):
 		infos = {}
 		N = len(word_list)
 		self.dicts = []
 
-			#comparing each words and sorting the patterns
+		#comparing each words and sorting the patterns
 		for choice in word_list:
-			my_dict = {}
-			for i in range(len(Data.patterns)):
-				my_dict[Data.patterns[i]]=[]
+			my_dict = {pattern: list() for pattern in Data.patterns}
 
 			for ref in word_list:
 				pattern = Func.compare_words(choice, ref)
@@ -25,15 +21,13 @@ class wordle:
 
 			self.dicts.append(my_dict)
 
-			#computing the information based on the length of pattern groups
-
+		#computing the information based on the length of pattern groups
 		for i in range(N):
 			dict_ = self.dicts[i]
 			vals = list(dict_.values())
 			info = 0
 			for j in range(len(vals)):
 				if len(vals[j])!=0:
-					# omega = self.get_probabilities(vals[j])
 					omega = len(vals[j])/N
 					info -= omega*ln(omega)
 			infos[word_list[i]] = info
@@ -41,7 +35,7 @@ class wordle:
 		return infos
 
 
-	def print_info(self, infos):
+	def print_info(self, infos: dict):
 	
 		infos_df = pd.DataFrame(list(infos.items()))
 		infos_df.columns=["words", "infos"]
@@ -63,5 +57,5 @@ class wordle:
 			print("Remaining Solutions: ", len(words))
 
 if __name__=="__main__":
-	bot = wordle()
+	bot = Wordle()
 	bot.solve()
