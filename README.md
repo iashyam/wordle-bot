@@ -31,7 +31,7 @@ Eevery word, compared with every other word will make a matching pattern (eg ` b
 
 The information of a perticular word is related to probablity of pattern it can make with the correct guees (hidden word). This will be calculated by the formula:
 
-$$I(w) = -\Sum_{i=0}^{i=N} p_i \log p_i$$
+$$I(w) = -\sum_{i=0}^{i=N} p_i \log p_i$$
 
 where $N$ is the number of patterns of p is the probability of the pattern. We will select the word which gives us the maximum information. 
 
