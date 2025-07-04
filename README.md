@@ -25,7 +25,19 @@ By default, you can enter in capital or small letters. The pattern should be sho
 
 At the beginning of the game, any word can be the answer. We don't put the guess by guessing what can the answer be, but by guessing what word can limit our space of possible solutions. The way I go about this is inspired from 3b1b.
 
-For every guess, the output would be one of `243` patterns possible. Assuming every word has the equal probability of being the solution, the most likely pattern is the one which correspond to maximum number of words. So, this creates a probability distribution of patterns among the guesses. Our best guess would be the one which creates the most number of patterns. I have explained all this in my blog, the link to which is found here.
+For every guess, the output would be one of `243` patterns possible. Assuming every word has the equal probability of being the solution, the most likely pattern is the one which correspond to maximum number of words. So, this creates a probability distribution of patterns among the guesses. Our best guess would be the one which creates the most number of patterns. 
+
+Eevery word, compared with every other word will make a matching pattern (eg ` bbgbb` something like that), we will compute the number of words for each pattern. Since the probablity of each word is the same, the probablity of the patterns will be just the number of words.We will compute information from here. 
+
+The information of a perticular word is related to probablity of pattern it can make with the correct guees (hidden word). This will be calculated by the formula:
+
+$$I(w) = -\Sum_{i=0}^{i=N} p_i \log p_i$$
+
+where $N$ is the number of patterns of p is the probability of the pattern. We will select the word which gives us the maximum information. 
+
+When we put that word with max information in the game, we will get some pattern as a result. We will only select the words with same pattern. And then play the game with limited number of words, until we find our answer. (Or be out of guess). 
+
+I know I have explained poorly here. But you can check out [3b1b's vide](https://www.youtube.com/watch?v=v68zYyaEmEA) for more clarity: 
 
 ## Installation
 
