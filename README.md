@@ -45,19 +45,19 @@ Okay, you will need two libraries to run this. `numpy` and `pandas`. After that 
 
 Install Numpy and andas
 
-```cmd
+```bash
  pip install numpy, pandas
  ```
 
 Clone the project
 
- ```cmd
- git clone
+ ```bash
+ git clone https://github.com/iashyam/wordle-bot
  ```
 
 Run the bot
 
-```cmd
+```bash
 python wordle_bot.py
 ```
 
