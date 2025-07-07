@@ -1,6 +1,6 @@
 import pandas as pd
 from numpy import log2 as ln
-from tqdm import tqdm
+# from tqdm import tqdm
 from src import *
 
 class Wordle:
@@ -55,6 +55,9 @@ class Wordle:
 			word_index =words.index(guess)
 			words = self.dicts[word_index][pattern]
 			print("Remaining Solutions: ", len(words))
+			if len(words)==0:
+				print("Today's word is in our list, tough luck!")
+				break;
 
 if __name__=="__main__":
 	bot = Wordle()
