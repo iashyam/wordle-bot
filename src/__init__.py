@@ -1,4 +1,1 @@
-from .load_data import Data
-from .utils import Functions
-Data = Data()
-Func = Functions()
+from .solver import WordleSolver
