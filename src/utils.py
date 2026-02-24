@@ -18,3 +18,9 @@ class Functions:
 					else:
 						pattern += "Y"
 		return pattern
+
+	def is_valid_pattern(self, pattern):
+		return len(pattern)==5 and all(c in "GBY" for c in pattern)
+
+	def is_valid_word(self, word):
+		return len(word)==5 and all(c in "abcdefghijklmnopqrstuvwxyz" for c in word)

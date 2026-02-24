@@ -1,4 +1,4 @@
-import pandas as pd
+
 from numpy import log2 as ln
 # from tqdm import tqdm
 from src import *
@@ -36,28 +36,50 @@ class Wordle:
 
 
 	def print_info(self, infos: dict):
+		# Sort by info value in descending order and grab top 5
+		top_infos = sorted(infos.items(), key=lambda item: item[1], reverse=True)[:5]
+		
+		print(f"  {'words':<6} {'infos'}")
+		# Mimicking the previous pandas output format
+		for i, (word, info) in enumerate(top_infos):
+			print(f"{i} {word:<6} {info:.6f}")
 	
-		infos_df = pd.DataFrame(list(infos.items()))
-		infos_df.columns=["words", "infos"]
-		infos_df = infos_df.sort_values(by="infos", ascending=0)
-		print(infos_df.head())
-	
+	def get_valid_input(self, words):
+		while True:
+			guess = input("Enter the guess: ").lower()
+			if len(guess) != 5:
+				print("Invalid guess, please try again")
+				continue
+			if guess not in words:
+				print("Word isn't in our list, please try again")
+				continue
+				
+			pattern = input("Enter the pattern: ").upper()
+			if not Func.is_valid_pattern(pattern):
+				print("Invalid pattern, please try again")
+				continue
+				
+			return guess, pattern
+
 	def solve(self):
 		words = Data.words
-		for i in range(6):
+		for attempts in range(6):
 			infos = self.max_info(words)
 			self.print_info(infos)
-			guess = input("Enter the guess: ").lower()
-			pattern = input("Enter the pattern: ").upper()
-			if pattern=="GGGGG":
+			
+			guess, pattern = self.get_valid_input(words)
+			
+			if pattern == "GGGGG":
 				print("congratulations, we did it!")
-				break;
-			word_index =words.index(guess)
+				break
+				
+			word_index = words.index(guess)
 			words = self.dicts[word_index][pattern]
 			print("Remaining Solutions: ", len(words))
-			if len(words)==0:
-				print("Today's word is in our list, tough luck!")
-				break;
+			
+			if len(words) == 0:
+				print("Today's word isn't in our list, tough luck!")
+				break
 
 if __name__=="__main__":
 	bot = Wordle()
