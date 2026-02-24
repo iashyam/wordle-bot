@@ -9,9 +9,8 @@ class WordleCLI:
 
 	def print_info(self, top_infos: list):
 		print(f"  {'words':<6} {'infos'}")
-		# Mimicking the previous Pandas output format
 		for i, (word, info) in enumerate(top_infos):
-			print(f"{i} {word:<6} {info:.6f}")
+			print(f"{i+1} {word:<6} {info:.6f}")
 	
 	def get_valid_input(self):
 		while True:

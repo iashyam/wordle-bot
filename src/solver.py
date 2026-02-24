@@ -7,7 +7,7 @@ Func = Functions()
 
 class WordleSolver:
 	def __init__(self, starting_words=None):
-		self.words = starting_words if starting_words is not None else Data.words
+		self.words = starting_words if starting_words else Data.words
 		self.dicts = []
 
 	def max_info(self, word_list: list) -> dict:
@@ -17,10 +17,12 @@ class WordleSolver:
 
 		#comparing each words and sorting the patterns
 		for choice in word_list:
-			my_dict = {pattern: list() for pattern in Data.patterns}
+			my_dict = {}
 
 			for ref in word_list:
 				pattern = Func.compare_words(choice, ref)
+				if pattern not in my_dict.keys():
+					my_dict[pattern] = []
 				my_dict[pattern].append(ref)
 
 			self.dicts.append(my_dict)
