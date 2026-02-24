@@ -26,17 +26,12 @@ class Data:
 				continue
 
     #filter only the pattern with length 5
-	def filterPatterns(self):
+	def getPatterns(self):
 		
 		self.generatePatterns()
     	#create a filter 
-		filter_function = lambda pattern: True if len(pattern)==5 else False
+		filter_function = lambda pattern: len(pattern)==5 
 
 		return list(filter(filter_function, self.lst))
-
-    
-	def getPatterns(self):
-		return self.filterPatterns()
-	    
 
 		
