@@ -1,7 +1,13 @@
-import api.core.redis_client as redis_client
 from fastapi import FastAPI
+from api.exceptions import register_exception_handlers
+from api.routes import router as api_router
+import api.core.redis_client as redis_client
 
-app = FastAPI()
+app = FastAPI(title="Wordle Bot API")
+
+register_exception_handlers(app)
+
+app.include_router(api_router, prefix="/api")
 
 
 @app.on_event("startup")
@@ -11,4 +17,4 @@ async def startup_event():
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return {"Hello": "Wordle Bot"}
