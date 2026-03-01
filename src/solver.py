@@ -67,8 +67,26 @@ class WordleSolver:
 
 	def update_state(self, guess: str, pattern: str):
 		"""Updates the remaining words list based on a given guess and pattern outcome."""
-		word_index = self.words.index(guess)
-		self.words = self.dicts[word_index][pattern]
+		if not Func.is_valid_word(guess):
+			raise ValueError(f"Invalid guess format: {guess}")
+		if not Func.is_valid_pattern(pattern):
+			raise ValueError(f"Invalid pattern format: {pattern}. Must be 5 characters of G, B, Y.")
+		if guess not in self.words:
+			raise ValueError(f"Guess '{guess}' is not in the remaining words list.")
+			
+		if self.dicts and len(self.dicts) == len(self.words):
+			word_index = self.words.index(guess)
+			if pattern not in self.dicts[word_index]:
+				raise ValueError(f"Pattern '{pattern}' is not possible for guess '{guess}'.")
+			self.words = self.dicts[word_index][pattern]
+		else:
+			remaining = [ref for ref in self.words if Func.compare_words(guess, ref) == pattern]
+			if not remaining:
+				raise ValueError(f"Pattern '{pattern}' is not possible for guess '{guess}'.")
+			self.words = remaining
+		
+		if len(self.words) == 0:
+			raise ValueError("No remaining words possible. Today's word isn't in our list, tough luck!")
 
 	def get_remaining_count(self) -> int:
 		"""Returns the number of possible solutions remaining."""
