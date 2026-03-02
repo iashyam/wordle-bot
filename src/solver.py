@@ -74,19 +74,12 @@ class WordleSolver:
 		if guess not in self.words:
 			raise ValueError(f"Guess '{guess}' is not in the remaining words list.")
 			
-		if self.dicts and len(self.dicts) == len(self.words):
+		if self.dicts and len(self.dicts) == len(self.words) and guess in self.words:
 			word_index = self.words.index(guess)
-			if pattern not in self.dicts[word_index]:
-				raise ValueError(f"Pattern '{pattern}' is not possible for guess '{guess}'.")
-			self.words = self.dicts[word_index][pattern]
+			self.words = self.dicts[word_index].get(pattern, [])
 		else:
 			remaining = [ref for ref in self.words if Func.compare_words(guess, ref) == pattern]
-			if not remaining:
-				raise ValueError(f"Pattern '{pattern}' is not possible for guess '{guess}'.")
 			self.words = remaining
-		
-		if len(self.words) == 0:
-			raise ValueError("No remaining words possible. Today's word isn't in our list, tough luck!")
 
 	def get_remaining_count(self) -> int:
 		"""Returns the number of possible solutions remaining."""
