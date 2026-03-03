@@ -1,19 +1,8 @@
 from fastapi import APIRouter
 from api.services import service
-from pydantic import BaseModel
+from api.models import StartSessionRequest, PredictRequest, CloseRequest
 
 router = APIRouter()
-
-class StartSessionRequest(BaseModel):
-    session_id: str
-
-class PredictRequest(BaseModel):
-    session_id: str
-    guess: str
-    pattern: str
-
-class CloseRequest(BaseModel):
-    session_id: str
 
 @router.get("/health")
 async def health_check():
