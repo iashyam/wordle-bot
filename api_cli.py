@@ -21,6 +21,9 @@ class WordleAPICLI:
             res.raise_for_status()
             data = res.json()
             print(f"Session started! Remaining words: {data['remaining_count']}")
+            top_guesses = data.get("best_guesses", [])
+            if top_guesses:
+                self.print_info(top_guesses)
         except requests.exceptions.RequestException as e:
             print(f"Failed to start session. Is the server running? Error: {e}")
             return

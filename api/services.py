@@ -29,15 +29,20 @@ class WordleService:
 
     async def start_session(self, session_id: str):
         client = await get_client()
+        words = data_instance.words
         session_data = {
-            "words": data_instance.words,
+            "words": words,
             "history": []
         }
         await client.set(session_id, json.dumps(session_data))
+        solver = WordleSolver()
+        best_guesses = solver.get_best_guesses(n=5)
+        top_guesses_formatted = [{"word": w, "info": info} for w, info in best_guesses]
         return {
             "session_id": session_id,
             "message": "Session started",
-            "remaining_count": len(data_instance.words)
+            "remaining_count": len(data_instance.words),
+            "best_guesses": top_guesses_formatted
         }
 
     async def predict_next_word(self, session_id: str, guess: str, pattern: str):
