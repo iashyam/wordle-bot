@@ -1,0 +1,56 @@
+# docker-compose.yml
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fastapi_app
+    networks:
+      - app-network
+    environment:
+      REDIS_URI: redis # Reference the redis service name
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: rohit_sharma
+    restart: always
+
+  redis:
+    image: redis:6.0.7-alpine # Using a specific stable image
+    command: redis-server --requirepass rohit_sharma
+    container_name: redis_db
+    networks:
+      - app-network
+    ports:
+      - "6379:6379" # Optional: Expose Redis port to host machine
+    restart: always
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: nginx_proxy
+    networks:
+      - app-network
+    ports:
+      - "80:80" # Expose Nginx port 80 to the host machine
+    depends_on:
+      - app # Nginx should start after the FastAPI app is running
+    restart: always
+
+  ngrok:
+    image: ngrok/ngrok:latest
+    restart: always
+    environment:
+      NGROK_AUTHTOKEN: ${NGROK_AUTHTOKEN}
+    command:
+      - "http"
+      - "nginx:80" # Points ngrok to your Nginx container's port 80
+    depends_on:
+      - nginx
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
