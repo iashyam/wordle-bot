@@ -12,6 +12,8 @@ services:
       REDIS_URI: redis # Reference the redis service name
       REDIS_PORT: 6379
       REDIS_PASSWORD: rohit_sharma
+    volumes:
+      - ./logs:/app/logs
     restart: always
 
   redis:
