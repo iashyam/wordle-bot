@@ -34,7 +34,7 @@ class WordleService:
             "words": words,
             "history": []
         }
-        await client.set(session_id, json.dumps(session_data))
+        await client.set(session_id, json.dumps(session_data), ex=7200)  # 2 hours TTL
         solver = WordleSolver()
         best_guesses = solver.get_best_guesses(n=5)
         top_guesses_formatted = [{"word": w, "info": info} for w, info in best_guesses]
@@ -81,7 +81,7 @@ class WordleService:
         session_data["words"] = new_words
         session_data["history"] = history
         
-        await client.set(session_id, json.dumps(session_data))
+        await client.set(session_id, json.dumps(session_data), ex=7200)  # 2 hours TTL
 
         top_guesses_formatted = [{"word": w, "info": info} for w, info in best_guesses]
 
